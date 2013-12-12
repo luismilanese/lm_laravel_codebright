@@ -1,5 +1,28 @@
 <?php
 
+Route::filter('birthday', 'BirthdayFilter');
+
+Route::filter('birthdayMessage', function($route, $request, $first, $second, $third, $fourth = ".")
+{
+    return "{$first}, {$second} & {$third} {$fourth}";
+});
+
+Route::filter('xmas', function()
+{
+    if (true) return 'Jingle bells...';
+});
+
+Route::filter('test', function($route, $request)
+{
+    echo '<pre>'; var_dump($route); exit;
+});
+
+Route::filter('test', function($route, $request, $response)
+{
+
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Application & Route Filters
