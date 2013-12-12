@@ -1,4 +1,2 @@
-lm_laravel_codebright
+Luis Milanese's Laravel: Code Bright walkthrough
 =====================
-
-Walkthrough of the book Laravel: Code Bright by Dayle Rees
