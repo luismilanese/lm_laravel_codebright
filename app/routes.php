@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('index', 'ArticleController@showIndex');
+Route::get('index', 'Blog\ArticleController@showIndex');
+
+Route::get('templated', 'HomeController@showTemplated');
 
 Route::get('squirrel/{squirrelColor}', array(
     'before' => 'birthday:05/12|birthdayMessage:love,peace,sex|xmas',
@@ -31,6 +33,17 @@ Route::get('/redirect/second', function()
     return 'Second route.';
 });
 
+Route::get('example/{extra?}', function($extraMsg = "Default message")
+{
+    $data = array();
+    $data['msg'] = $extraMsg;
+    $data['something'] = 'Black cat';
+    $data['animals'] = array(
+        'Cat', 'dog', 'squirrel', 'elephant'
+    );
+
+    return View::make('example_template', $data);
+});
 
 Route::get('custom/response', function()
 {
