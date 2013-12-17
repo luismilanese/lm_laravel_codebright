@@ -3,6 +3,8 @@
 /vendor
 composer.phar
 composer.lock
+error.log
+access.log
 .DS_Store
 Thumbs.db
 /_ide_helper.php
