@@ -2,6 +2,8 @@
 
 Route::filter('birthday', 'BirthdayFilter');
 
+Route::filter('brogrammers', 'BrogrammersFilter');
+
 Route::filter('birthdayMessage', function($route, $request, $first, $second, $third, $fourth = ".")
 {
     return "{$first}, {$second} & {$third} {$fourth}";

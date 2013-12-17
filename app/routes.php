@@ -23,6 +23,15 @@ Route::get('squirrel/{squirrelColor}', array(
     }
 ));
 
+Route::get('/calendar/show', array(
+    'as' => 'calendar', 
+    'uses' => 'Blog\CalendarController@showCalendar'
+));
+
+Route::get('save/{princess}', function($princess) {
+    return "Sorry, {$princess} is in another castle. :(";
+})->where('princess', '[A-Za-z]+');
+
 Route::get('/redirect/first', function()
 {
     return Redirect::to('/redirect/second');
@@ -66,4 +75,33 @@ Route::get('response/json', function()
 {
     $data = array('Aw', 'no', 'Iron', 'Man');
     return Response::json($data);
+});
+
+Route::group(array('prefix' => 'cool'), function()
+{
+    Route::get('/brogram/first', function() 
+    {
+        return 'Dude!!';
+    });
+    
+    Route::get('/brogram/second', function() 
+    {
+        return 'Second dude!';
+    });
+});
+
+Route::get('the/best/avenger', array('as' => 'ironman', function()
+{
+    return 'Tony Stark';
+}));
+
+Route::get('best/avenger', function()
+{
+    return Redirect::to('ironman');
+});
+
+Route::get('/input', function()
+{
+    $data = Input::all();
+    var_dump($data);
 });
