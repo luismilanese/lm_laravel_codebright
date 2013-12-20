@@ -23,6 +23,13 @@ Route::get('squirrel/{squirrelColor}', array(
     }
 ));
 
+Route::get('/input-form', function()
+{
+    return View::make('form');
+});
+
+Route::post('form-submit', 'RequestChapter\FormController@getFormSubmit');
+
 Route::get('/calendar/show', array(
     'as' => 'calendar', 
     'uses' => 'Blog\CalendarController@showCalendar'
@@ -98,16 +105,4 @@ Route::get('the/best/avenger', array('as' => 'ironman', function()
 Route::get('best/avenger', function()
 {
     return Redirect::to('ironman');
-});
-
-Route::get('/input-form', function()
-{
-    return View::make('form');
-});
-
-Route::post('/input-get', function()
-{
-    $data = Input::all();
-    echo get_class($data); exit;
-    var_dump($data);
 });
