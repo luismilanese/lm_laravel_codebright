@@ -11,98 +11,54 @@
 |
 */
 
-Route::get('index', 'Blog\ArticleController@showIndex');
-
-Route::get('templated', 'HomeController@showTemplated');
-
-Route::get('squirrel/{squirrelColor}', array(
-    'before' => 'birthday:05/12|birthdayMessage:love,peace,sex|xmas',
-    function($squirrelColor) {
-        $data['squirrelColor'] = $squirrelColor;
-        return View::make('simple', $data);
-    }
-));
-
-Route::get('/input-form', function()
+Route::get('/', function()
 {
-    return View::make('form');
+    return Album::tripePeriod()->get();
 });
 
-Route::post('form-submit', 'RequestChapter\FormController@getFormSubmit');
-
-Route::get('/calendar/show', array(
-    'as' => 'calendar', 
-    'uses' => 'Blog\CalendarController@showCalendar'
-));
-
-Route::get('save/{princess}', function($princess) {
-    return "Sorry, {$princess} is in another castle. :(";
-})->where('princess', '[A-Za-z]+');
-
-Route::get('/redirect/first', function()
+Route::get('/seed', function()
 {
-    return Redirect::to('/redirect/second');
-});
+    $album = new Album();
+    $album->title  = 'Some Mad Hope';
+    $album->artist = 'Matt Nathanson';
+    $album->genre  = 'Acoustic';
+    $album->year   = 2007;
+    $album->save();
 
-Route::get('/redirect/second', function()
-{
-    return 'Second route.';
-});
+    $album = new Album();
+    $album->title  = 'Title';
+    $album->artist = 'Matt Nathanson';
+    $album->genre  = 'Acoustic';
+    $album->year   = 1993;
+    $album->save();
 
-Route::get('example/{extra?}', function($extraMsg = "Default message")
-{
-    $data = array();
-    $data['msg'] = $extraMsg;
-    $data['something'] = 'Black cat';
-    $data['animals'] = array(
-        'Cat', 'dog', 'squirrel', 'elephant'
-    );
+    $album = new Album();
+    $album->title  = 'Leaving Through The Window';
+    $album->artist = 'Something Corporate';
+    $album->genre  = 'Piano';
+    $album->year   = 2002;
+    $album->save();
 
-    return View::make('example_template', $data);
-});
+    $album = new Album();
+    $album->title  = 'North';
+    $album->artist = 'Something Corporate';
+    $album->genre  = 'Piano';
+    $album->year   = 2002;
+    $album->save();
 
-Route::get('custom/response', function()
-{
-    $response = Response::make('Hello world!', 200);
-    $response->headers->set('our key', 'our value');
-echo '<pre>'; var_dump(Session); exit;
-    return $response;
-});
+    $album = new Album();
+    $album->title  = '... Anywhere But Here';
+    $album->artist = 'The Ataris';
+    $album->genre  = 'Punk';
+    $album->year   = 1997;
+    $album->save();
 
-Route::get('/books/{genre?}', function($genre = null) {
+    $album = new Album();
+    $album->title  = '... Is A Real Boy';
+    $album->artist = 'Say Anything';
+    $album->genre  = 'Indie';
+    $album->year   = 2006;
+    $album->save();
 
-    if ($genre == null) {
-        return "Books index.";
-    }
 
-    return "Books in the <strong>{$genre}</strong> category. :D";
-});
-
-Route::get('response/json', function()
-{
-    $data = array('Aw', 'no', 'Iron', 'Man');
-    return Response::json($data);
-});
-
-Route::group(array('prefix' => 'cool'), function()
-{
-    Route::get('/brogram/first', function() 
-    {
-        return 'Dude!!';
-    });
-    
-    Route::get('/brogram/second', function() 
-    {
-        return 'Second dude!';
-    });
-});
-
-Route::get('the/best/avenger', array('as' => 'ironman', function()
-{
-    return 'Tony Stark';
-}));
-
-Route::get('best/avenger', function()
-{
-    return Redirect::to('ironman');
 });
